@@ -18,9 +18,10 @@ SelectField.defaultValue = {
 };
 
 function SelectField(props) {
-    const { field, form, placeholder, options, disabled, label } = props;
+    const { field, placeholder, options, disabled, label } = props;
     const { name, value } = field;
-    const selectedOption = options.find((x) => x.value === value);
+    const selectedValue = options.find((x) => x.value === value);
+    const selectedOption = selectedValue ? selectedValue : null;
 
     function handleSelectValueChange(selectOption) {
         const value = selectOption ? selectOption.value : selectOption;

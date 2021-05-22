@@ -1,11 +1,10 @@
-import Images from 'constants/images';
 import PHOTO_SELECT_OPTIONS from 'constants/values';
 import InputField from 'customfields/InputField';
+import PhotoField from 'customfields/PhotoField';
 import SelectField from 'customfields/SelectField';
 import { FastField, Form, Formik } from 'formik';
 import React from 'react';
-import Select from 'react-select';
-import { Button, FormGroup, Label } from 'reactstrap';
+import { Button, FormGroup } from 'reactstrap';
 import './PhotoForm.scss';
 PhotoForm.propTypes = {};
 
@@ -13,10 +12,19 @@ function PhotoForm(props) {
     const initialValues = {
         title: '',
         category: null,
+        photo: '',
     };
+
     return (
         <div className="photo-form">
-            <Formik initialValues={initialValues}>
+            <Formik
+                initialValues={initialValues}
+                onSubmit={(values, action) => {
+                    action.resetForm({
+                        values: { ...initialValues },
+                    });
+                }}
+            >
                 {(formikProps) => {
                     const { values, errors, touched } = formikProps;
                     console.log({ values, errors, touched });
@@ -37,20 +45,11 @@ function PhotoForm(props) {
                                 placeholder="Select your category photo"
                             />
 
-                            <FormGroup className="photo-form__group">
-                                <Label>Photo</Label>
-                                <div>
-                                    <Button outline color="primary">
-                                        Random a photo
-                                    </Button>
-                                    <div
-                                        className="photo-form__img"
-                                        style={{
-                                            backgroundImage: `url(${Images.ORANGE_BG})`,
-                                        }}
-                                    ></div>
-                                </div>
-                            </FormGroup>
+                            <FastField
+                                name="photo"
+                                component={PhotoField}
+                                label="Photo"
+                            />
                             <FormGroup className="photo-form__group">
                                 <Button color="primary" type="submit">
                                     Send a photo
