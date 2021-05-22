@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormGroup, Label } from 'reactstrap';
+import { FormFeedback, FormGroup, Label } from 'reactstrap';
 import RandomPhoto from 'components/RandomPhoto';
+import { ErrorMessage } from 'formik';
 
 PhotoField.propTypes = {
     label: PropTypes.string,
@@ -13,6 +14,7 @@ PhotoField.defaultValue = {
 
 function PhotoField(props) {
     const { field, form, label } = props;
+    const { errors, touched } = form;
     const { name, value, onBlur } = field;
 
     const handleImageChange = (newImageUrl) => {
@@ -27,7 +29,9 @@ function PhotoField(props) {
                 imageUrl={value}
                 onButtonClick={handleImageChange}
                 onButtonBlur={onBlur}
+                className={errors[name] && touched[name] ? 'is-invalid' : ''}
             />
+            <ErrorMessage name={name} component={FormFeedback} />
         </FormGroup>
     );
 }

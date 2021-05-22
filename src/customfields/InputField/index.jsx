@@ -1,6 +1,7 @@
+import { ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FormGroup, Input, Label } from 'reactstrap';
+import { FormFeedback, FormGroup, Input, Label } from 'reactstrap';
 
 InputField.propTypes = {
     field: PropTypes.object.isRequired,
@@ -20,12 +21,21 @@ InputField.defaultValue = {
 };
 
 function InputField(props) {
-    const { field, label, placeholder, type, disabled } = props;
+    const { field, form, label, placeholder, type, disabled } = props;
     const { name } = field;
+    const { errors, touched } = form;
     return (
         <FormGroup className="photo-form__group">
             {label && <Label for={name}>{label}</Label>}
-            <Input id={name} {...field} type={type} placeholder={placeholder} disabled={disabled} />
+            <Input
+                id={name}
+                {...field}
+                type={type}
+                placeholder={placeholder}
+                disabled={disabled}
+                invalid={errors[name] && touched[name]}
+            />
+            <ErrorMessage name={name} component={FormFeedback} />
         </FormGroup>
     );
 }
