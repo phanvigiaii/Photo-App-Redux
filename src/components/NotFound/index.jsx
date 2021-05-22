@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-
+import React from 'react';
+import './NotFound.scss';
 NotFound.propTypes = {};
 
 function NotFound(props) {
     return (
-        <div>
-            <h1>Page Not Found</h1>
+        <div className="page-not-found">
+            <div className="error">404</div>
+            <span className="info">File not found</span>
         </div>
     );
 }

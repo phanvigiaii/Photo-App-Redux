@@ -1,0 +1,22 @@
+.header {
+    padding: 20px 0;
+    &__link {
+        color: #333;
+        font-size: 30px;
+        text-decoration: none;
+        padding: 20px;
+        font-weight: 500;
+        transition: all ease-in-out 0.3s;
+        &:hover {
+            color: #0b62e0;
+        }
+        &.hover {
+            &:hover {
+                outline: 1px solid #0b62e0;
+            }
+        }
+        &-active {
+            color: #0b62e0;
+        }
+    }
+}
