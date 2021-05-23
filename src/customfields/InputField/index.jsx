@@ -24,6 +24,7 @@ function InputField(props) {
     const { field, form, label, placeholder, type, disabled } = props;
     const { name } = field;
     const { errors, touched } = form;
+
     return (
         <FormGroup className="photo-form__group">
             {label && <Label for={name}>{label}</Label>}

@@ -11,10 +11,14 @@ import './PhotoForm.scss';
 
 PhotoForm.propTypes = {
     onSubmit: PropTypes.func,
+    itemEditPhoto: PropTypes.object,
+    isAddMode: PropTypes.bool,
 };
 
 PhotoForm.defaultValue = {
     onSubmit: null,
+    itemEditPhoto: null,
+    isAddMode: true,
 };
 
 const photoSchema = Yup.object().shape({
@@ -24,11 +28,11 @@ const photoSchema = Yup.object().shape({
 });
 
 function PhotoForm(props) {
-    const { onSubmit } = props;
+    const { onSubmit, itemEditPhoto, isAddMode } = props;
     const initialValues = {
-        title: '',
-        category: null,
-        photo: '',
+        title: itemEditPhoto ? itemEditPhoto.title : '',
+        category: itemEditPhoto ? itemEditPhoto.category : null,
+        photo: itemEditPhoto ? itemEditPhoto.photo : '',
     };
 
     return (
@@ -39,10 +43,7 @@ function PhotoForm(props) {
                 onSubmit={onSubmit}
             >
                 {(formikProps) => {
-                    const { values, errors, touched, isSubmitting } =
-                        formikProps;
-
-                    console.log(formikProps);
+                    const { isSubmitting } = formikProps;
 
                     return (
                         <Form>
@@ -66,12 +67,15 @@ function PhotoForm(props) {
                                 component={PhotoField}
                                 label="Photo"
                             />
+
                             <FormGroup className="photo-form__group">
                                 <Button color="primary" type="submit">
                                     {isSubmitting && (
                                         <Spinner size="sm" children="" />
                                     )}
-                                    Send a photo
+                                    {isAddMode
+                                        ? 'Add to album'
+                                        : 'Update a photo'}
                                 </Button>
                             </FormGroup>
                         </Form>
