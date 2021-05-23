@@ -2,12 +2,20 @@ import PHOTO_SELECT_OPTIONS from 'constants/values';
 import InputField from 'customfields/InputField';
 import PhotoField from 'customfields/PhotoField';
 import SelectField from 'customfields/SelectField';
-import * as Yup from 'yup';
 import { FastField, Form, Formik } from 'formik';
+import PropTypes from 'prop-types';
 import React from 'react';
-import { Button, FormGroup } from 'reactstrap';
+import { Button, FormGroup, Spinner } from 'reactstrap';
+import * as Yup from 'yup';
 import './PhotoForm.scss';
-PhotoForm.propTypes = {};
+
+PhotoForm.propTypes = {
+    onSubmit: PropTypes.func,
+};
+
+PhotoForm.defaultValue = {
+    onSubmit: null,
+};
 
 const photoSchema = Yup.object().shape({
     title: Yup.string().required('This field is required'),
@@ -16,6 +24,7 @@ const photoSchema = Yup.object().shape({
 });
 
 function PhotoForm(props) {
+    const { onSubmit } = props;
     const initialValues = {
         title: '',
         category: null,
@@ -27,15 +36,14 @@ function PhotoForm(props) {
             <Formik
                 initialValues={initialValues}
                 validationSchema={photoSchema}
-                onSubmit={(values, action) => {
-                    action.resetForm({
-                        values: { ...initialValues },
-                    });
-                }}
+                onSubmit={onSubmit}
             >
                 {(formikProps) => {
-                    const { values, errors, touched } = formikProps;
-                    console.log({ values, errors, touched });
+                    const { values, errors, touched, isSubmitting } =
+                        formikProps;
+
+                    console.log(formikProps);
+
                     return (
                         <Form>
                             <FastField
@@ -60,6 +68,9 @@ function PhotoForm(props) {
                             />
                             <FormGroup className="photo-form__group">
                                 <Button color="primary" type="submit">
+                                    {isSubmitting && (
+                                        <Spinner size="sm" children="" />
+                                    )}
                                     Send a photo
                                 </Button>
                             </FormGroup>

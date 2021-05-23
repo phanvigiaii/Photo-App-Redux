@@ -1,0 +1,54 @@
+.photo-card {
+    position: relative;
+    &__title {
+        font-size: 20px;
+        color: #fff;
+        font-weight: 500;
+    }
+    &__img {
+        max-width: 100%;
+        height: 300px;
+        border-radius: 20px;
+    }
+    &:hover {
+        .photo-card__wrap {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+    &__wrap {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease-in-out;
+        &-btn {
+            width: 100%;
+            button {
+                width: calc(100% / 2 - 30px);
+                margin: 15px;
+                &.btn-outline-white {
+                    border: 1px solid #fff;
+                    color: #fff !important;
+                    overflow: hidden;
+                    &:hover {
+                        background-color: #fff;
+                        color: #000 !important;
+                    }
+                }
+            }
+        }
+    }
+}
