@@ -8,7 +8,7 @@ Header.propTypes = {};
 
 function Header(props) {
     const isSignedIn = useSelector((state) => state.user);
-    console.log(isSignedIn);
+
     return (
         <div className="header">
             <Container>

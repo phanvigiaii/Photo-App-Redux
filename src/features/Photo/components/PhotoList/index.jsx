@@ -16,8 +16,7 @@ PhotoList.defaultValue = {
 };
 
 function PhotoList(props) {
-    const { onRemove, onEdit } = props;
-    const { photos } = props;
+    const { onRemove, onEdit, photos } = props;
 
     return (
         <div className="photo-list">

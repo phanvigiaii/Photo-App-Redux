@@ -1,7 +1,7 @@
-import { addUser } from 'features/Auth/authSlice';
+import { setSignedIn } from 'features/Auth/authSlice';
 import firebase from 'firebase';
 import React, { Suspense, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './App.scss';
 import Header from './components/Header';
@@ -20,24 +20,22 @@ const SignIn = React.lazy(() => import('features/Auth/pages/SignIn'));
 
 function App() {
     const dispatch = useDispatch();
-    // useEffect(() => {
-    //     const unregisterAuthObserver = firebase
-    //         .auth()
-    //         .onAuthStateChanged((user) => {
-    //             if (user) {
-    //                 console.log(user);
-    //                 // dispatch(addUser(user));
-    //             } else {
-    //             }
-    //         });
-    //     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
-    // }, []);
+
+    useEffect(() => {
+        console.log('hello');
+        const unregisterAuthObserver = firebase
+            .auth()
+            .onAuthStateChanged((user) => {
+                dispatch(setSignedIn(!!user));
+            });
+        return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
+    }, []);
 
     return (
         <div className="photo-app">
             <Suspense fallback={<div>Loading...</div>}>
                 <BrowserRouter>
-                    <Header></Header>
+                    <Header />
                     <Switch>
                         <Redirect exact from="/" to="/photos" />
                         <Route path="/photos" component={Photo} />

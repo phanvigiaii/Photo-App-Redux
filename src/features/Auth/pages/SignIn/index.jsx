@@ -23,17 +23,6 @@ function SignIn(props) {
     const isSignedIn = useSelector((state) => state.user);
     const history = useHistory();
 
-    useEffect(() => {
-        const unregisterAuthObserver = firebase
-            .auth()
-            .onAuthStateChanged((user) => {
-                console.log('hello');
-                dispatch(setSignedIn(!!user));
-                // history.push('/photos');
-            });
-        return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
-    }, []);
-
     if (!isSignedIn) {
         return (
             <div className="sign-in">
@@ -49,13 +38,15 @@ function SignIn(props) {
         );
     } else {
         return (
-            <div>
-                <h1>My App</h1>
-                <p>
-                    Welcome {firebase.auth().currentUser.displayName}! You are
-                    now signed-in!
-                </p>
-                <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
+            <div className="sign-in">
+                <div className="text-center mt-5">
+                    <h1>My App</h1>
+                    <p>
+                        Welcome {firebase.auth().currentUser.displayName}! You
+                        are now signed-in!
+                    </p>
+                    <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
+                </div>
             </div>
         );
     }

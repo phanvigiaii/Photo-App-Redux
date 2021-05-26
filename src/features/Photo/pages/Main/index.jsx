@@ -3,7 +3,7 @@ import PhotoList from 'features/Photo/components/PhotoList';
 import { removePhoto } from 'features/Photo/photoSlice';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useHistory, useParams } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import './MainPage.scss';
 
@@ -25,10 +25,7 @@ function MainPage(props) {
 
     return (
         <div className="main-page">
-            <Banner
-                title="Your Great Awesome Album Photo"
-                backgroundURL=""
-            ></Banner>
+            <Banner title="Your Great Awesome Album Photo" backgroundURL="" />
             <Button className="main-page__btn btn">
                 <NavLink to="/photos/add">Add photo</NavLink>
             </Button>
