@@ -31,7 +31,7 @@ function PhotoCard(props) {
     }
 
     return (
-        <Col xs="6" md="4" xl="3">
+        <Col xs="6" md="6" xl="3">
             <div className="photo-card">
                 <img src={photo.photo} alt="" className="photo-card__img" />
                 <div className="photo-card__wrap">
