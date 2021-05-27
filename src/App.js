@@ -22,7 +22,6 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('hello');
         const unregisterAuthObserver = firebase
             .auth()
             .onAuthStateChanged((user) => {

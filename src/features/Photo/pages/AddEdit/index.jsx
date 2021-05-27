@@ -26,7 +26,7 @@ function AddEditPage(props) {
                     category: null,
                     photo: '',
                 });
-                if (!itemEditPhoto) {
+                if (isAddMode) {
                     const photoID = Math.trunc(Math.random() * 1000000);
                     dispatch(addPhoto({ id: photoID, ...values }));
                 } else {
